@@ -3,48 +3,50 @@
 \title{EM Algorithm for Gaussian Locally Linear Mapping
 }
 \usage{
-gllim(tapp,yapp,in_K,in_r=NULL,maxiter=100,Lw=0,cstr=NULL,verb=0,in_theta=NULL)
+gllim(tapp,yapp,in_K,in_r=NULL,maxiter=100,Lw=0,cstr=NULL,verb=0,in_theta=NULL,...)
 }
 \arguments{
-\item{tapp}{A \code{Lt x N} matrix of training responses with variables in rows and subjects in columns}
-\item{yapp}{A \code{D x N} matrix of training covariates with variables in rows and subjects in columns}
+\item{tapp}{An \code{Lt x N} matrix of training responses with variables in rows and subjects in columns}
+\item{yapp}{An \code{D x N} matrix of training covariates with variables in rows and subjects in columns}
 \item{in_K}{Initial number of components}
 \item{in_r}{Initial assignments (default NULL)}
-\item{maxiter}{Maximum number of iterations (default 100). The algorithm stops if the number of iterations exceeds \code{maxiter} or if the difference of likelihood between two iterations is smaller than a threshold fixed to \eqn{0.001 (max(LL)-min(LL)} where \eqn{LL} is the vector of log-likelihoods at the successive iterations.}
+\item{maxiter}{Maximum number of iterations (default 100). The algorithm stops if the number of iterations exceeds \code{maxiter} or if the difference of likelihood between two iterations is smaller than a threshold fixed to \eqn{0.001 (max(LL)-min(LL))} where \eqn{LL} is the vector of log-likelihoods at the successive iterations.}
 \item{Lw}{Number of hidden components (default 0)}
 \item{cstr}{Constraints on error covariance matrices. Must be a list as following \code{cstr=list(Sigma="i")} constraints \eqn{\Sigma_k} to be diagonal and isotropic, which is the default. See details section hereafter to see the other available options to constraint the covariance matrices. }
 \item{verb}{Verbosity: print out the progression of the algorithm. If \code{verb=0}, there is no print, if \code{verb=1}, the progression is printed out. Default is 0.}
-\item{in_theta}{Initial parameters (default NULL), same structure as the output of this function. The EM algorithm can be  initialized either with initial assignments or initial parameters values.}
+\item{in_theta}{The EM algorithm can be  initialized either with initial assignments or initial parameters values. In that case, the initial parameters (default NULL) must have the same structure as the output \code{theta} of this function.}
+\item{...}{other arguments to be passed for internal use only}
 }
 \value{
 Returns a list with the following elements:
 \item{LLf}{Final log-likelihood}
 \item{LL}{Log-likelihood value at each iteration of the EM algorithm}
 \item{pi}{A vector of length \code{K} of mixture weights i.e. prior probabilities for each  component}
-\item{c}{A \code{(L x K)} matrix of means of responses (X) where \code{L=Lt+Lw}}
-\item{Gamma}{A \code{(L x L x K)} array of \code{K} matrices of covariances of responses (X) where \code{L=Lt+Lw}}
-\item{A}{A \code{(D x L x K)} array of \code{K} matrices of linear transformation matrices where \code{L=Lt+Lw}}
-\item{b}{A \code{(D x K)} matrix in which affine transformation vectors are in columns}
-\item{Sigma}{A \code{(D x D x K)} array of covariances of \eqn{Y}}
-\item{r}{A \code{(N x K)} matrix of posterior probabilities}
+\item{c}{An \code{(L x K)} matrix of means of responses (Y) where \code{L=Lt+Lw}}
+\item{Gamma}{An \code{(L x L x K)} array of \code{K} matrices of covariances of responses (Y) where \code{L=Lt+Lw}}
+\item{A}{An \code{(D x L x K)} array of \code{K} matrices of linear transformation matrices where \code{L=Lt+Lw}}
+\item{b}{An \code{(D x K)} matrix in which affine transformation vectors are in columns}
+\item{Sigma}{An \code{(D x D x K)} array of covariances of \eqn{X}}
+\item{r}{An \code{(N x K)} matrix of posterior probabilities}
+\item{nbpar}{The number of parameters estimated in the model}
 }
 \description{EM Algorithm for Gaussian Locally Linear Mapping
 }
 \details{
 The GLLiM model implemented in this function adresses the following non-linear mapping issue:
-\deqn{ E(X \vert Y=y) = g(y),}
-where \eqn{X} is a L-vector of multivariate responses and \eqn{Y} is a large D-vector of covariates' profiles such that \eqn{D \gg L}. The methods implemented in this package aims at estimating the non linear regression function \eqn{g}.
+\deqn{ E(Y | X=x) = g(x),}
+where \eqn{Y} is a L-vector of multivariate responses and \eqn{X} is a large D-vector of covariates' profiles such that \eqn{D \gg L}. The methods implemented in this package aims at estimating the non linear regression function \eqn{g}.
 
-First, the methods of this package are based on an inverse regression strategy. The inverse conditional relation \eqn{p(Y \vert X)} is specified in a way that the forward relation of interest \eqn{p(X \vert Y)} can be deduced in closed-from. The large number \eqn{D} of covariates is handled by this inverse regression trick, which acts as a dimension reduction technique. The number of parameters to estimate is therefore drastically reduced. Second, we propose to approximate the non linear \eqn{g} regression function by a piecewise affine function. Therefore, a hidden discrete variable \eqn{Z} is introduced, in order to divide the space into \eqn{K} regions such that an affine model holds  between responses X and variables Y in each  region \eqn{k}:
-\deqn{Y = \sum_{k=1}^K I_{Z=k} (A_k X + b_k + E_k)}
+First, the methods of this package are based on an inverse regression strategy. The inverse conditional relation \eqn{p(X | Y)} is specified in a way that the forward relation of interest \eqn{p(Y | X)} can be deduced in closed-from. Under some hypothesis on covariance structures, the large number \eqn{D} of covariates is handled by this inverse regression trick, which acts as a dimension reduction technique. The number of parameters to estimate is therefore drastically reduced. Second, we propose to approximate the non linear \eqn{g} regression function by a piecewise affine function. Therefore, a hidden discrete variable \eqn{Z} is introduced, in order to divide the space into \eqn{K} regions such that an affine model holds  between responses Y and variables X in each  region \eqn{k}:
+\deqn{X = \sum_{k=1}^K I_{Z=k} (A_k Y + b_k + E_k)}
 where \eqn{A_k} is a \eqn{D \times L} matrix of coeffcients for regression \eqn{k}, \eqn{b_k} is a D-vector of intercepts and \eqn{E_k} is a Gaussian noise with covariance matrix \eqn{\Sigma_k}. 
 
-GLLiM is defined as the following hierarchical Gaussian mixture model for the inverse conditional density \eqn{(Y \vert X)}:
-\deqn{p(Y \vert X=x,Z=k;\theta) = N(Y; A_kx+b_k,\Sigma_k)}
-\deqn{p(X \vert Z=k; \theta) = N(X; c_k,\Gamma_k)}
+GLLiM is defined as the following hierarchical Gaussian mixture model for the inverse conditional density \eqn{(X | Y)}:
+\deqn{p(X | Y=y,Z=k;\theta) = N(X; A_kx+b_k,\Sigma_k)}
+\deqn{p(Y | Z=k; \theta) = N(Y; c_k,\Gamma_k)}
 \deqn{p(Z=k)=\pi_k}
 where \eqn{\theta} is the set of parameters \eqn{\theta=(\pi_k,c_k,\Gamma_k,A_k,b_k,\Sigma_k)_{k=1}^K}.
-The forward conditional density of interest \eqn{p(X \vert Y)} is deduced from these equations and is also a Gaussian mixture of regression model.
+The forward conditional density of interest \eqn{p(Y | X)} is deduced from these equations and is also a Gaussian mixture of regression model.
 
 \code{\link{gllim}} allows the addition of  \eqn{L_w} latent variables in order to account for correlation among covariates or if it is supposed that responses are only partially observed. Adding latent factors is known to improve prediction accuracy, if \eqn{L_w} is not too large with regard to the number of covariates. When latent factors are added, the dimension of the response is \eqn{L=L_t+L_w} and \eqn{L=L_t} otherwise.
 
@@ -87,7 +89,7 @@ mod = gllim(responses,covariates,in_K=K,in_r=r);
 ## Adding 1 latent factor 
 ## mod = gllim(responses,covariates,in_K=K,in_r=r,Lw=1)
 
-## Some constraints on the covariance structure of \eqn{Y} can be added
+## Some constraints on the covariance structure of \eqn{X} can be added
 ## mod = gllim(responses,covariates,in_K=K,in_r=r,cstr=list(Sigma="i")) 
 # Isotropic covariances
 # (same variance among covariates but different in each component)

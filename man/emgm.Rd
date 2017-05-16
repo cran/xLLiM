@@ -6,20 +6,20 @@
 emgm(X, init, maxiter,verb)
 }
 \arguments{
-\item{X}{A \code{(M x N)} matrix with variables in rows and observations in columns. \code{M} is \code{D+L} in the proposed approach}
+\item{X}{An \code{(M x N)} matrix with variables in rows and observations in columns. \code{M} is \code{D+L} in the proposed approach}
 \item{init}{This argument can be a number \eqn{K} of classes (integer), a matrix of posterior probabilities (\code{(N x K)} matrix) or a matrix of centers (\code{(M x K)} matrix)}
 \item{maxiter}{Maximum number of iterations for estimation of the GMM}
 \item{verb}{Print out the progression of the algorithm. If \code{verb=0}, there is no print, if \code{verb=1}, the progression is printed out. Default is 0.}
 }
 \value{
 Returns a list with the following elements:
-\item{label}{A \code{N} vector of class assignments provided by maximum a posteriori (MAP) on posterior probabilities to belong to each of the K components for each observation}
+\item{label}{An \code{N} vector of class assignments provided by maximum a posteriori (MAP) on posterior probabilities to belong to each of the K components for each observation}
 \item{model}{A list with the estimated parameters of the  GMM}
-\item{model$mu}{A \code{(M x K)} matrix of estimations of means in each cluster of the joint GMM}
-\item{model$Sigma}{A \code{(M x M x K)} array of estimations of covariance matrix in each cluster of the  GMM}
-\item{model$weight}{A \code{K} vector of estimated prior probabilities of each cluster}
+\item{model$mu}{An \code{(M x K)} matrix of estimations of means in each cluster of the joint GMM}
+\item{model$Sigma}{An \code{(M x M x K)} array of estimations of covariance matrix in each cluster of the  GMM}
+\item{model$weight}{An \code{K} vector of estimated prior probabilities of each cluster}
 \item{llh}{A vector of values of the log-likelihood for each iteration of the algorithm}
-\item{R}{A \code{N x K} matrix of estimations of posterior probabilities to belong to each of the K components for each observation}
+\item{R}{An \code{N x K} matrix of estimations of posterior probabilities to belong to each of the K components for each observation}
 }
 \description{Perform EM algorithm for fitting a Gaussian mixture model (GMM). In the GLLiM context, this is done  jointly on both responses and covariates
 }

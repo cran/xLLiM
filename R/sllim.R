@@ -587,20 +587,25 @@ while ( !converged & iter<maxiter)
 LLf=LL[iter];
 phi$r = r;
 
+if (cstr$Sigma == "i") {nbparSigma = 1}
+if (cstr$Sigma == "d") {nbparSigma = D}  
+if (cstr$Sigma == "") {nbparSigma = D*(D+1)/2}
+if (cstr$Sigma == "*") {nbparSigma = D*(D+1)/(2*K)} 
+
+if (!is.null(cstr$Gammat)){
+  if (cstr$Gammat == "i") {nbparGamma = 1}
+  if (cstr$Gammat == "d") {nbparGamma = Lt}  
+  if (cstr$Gammat == "") {nbparGamma = Lt*(Lt+1)/2}
+  if (cstr$Gammat == "*") {nbparGamma = Lt*(Lt+1)/(2*K)}    
+}  
+if (is.null(cstr$Gammat)){
+  nbparGamma = Lt*(Lt+1)/2  
+}
+
+theta$nbpar = (K-1) + K*(1 + D*L + D + Lt + nbparSigma + nbparGamma)
+
 # % =============================Final plots===============================
 if(verb>=1) print(paste('Converged in ',iter,' iterations',sep=""));
-# if(verb>=2)
-# fig=figure;clf(fig);
-# plot(LL);
-# [~,cluster_idx]=max(r,[],2);
-# %  for d=1:D/2
-# %fig=figure;clf(fig); 
-# %scatter(y(2*d-1,:),y(2*d,:),200,cluster_idx');
-# %  end
-# %  fig=figure;clf(fig); 
-# %  scatter(t(1,:),t(2,:),200,cluster_idx','filled');
-# end
-# end
-  
+
 return(list(theta=theta,phi=phi,LLf=LLf,LL=LL[1:iter]))
 }

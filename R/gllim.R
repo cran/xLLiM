@@ -1,4 +1,4 @@
-gllim = function(tapp,yapp,in_K,in_r=NULL,maxiter=100,Lw=0,cstr=NULL,verb=0,in_theta=NULL){
+gllim = function(tapp,yapp,in_K,in_r=NULL,maxiter=100,Lw=0,cstr=NULL,verb=0,in_theta=NULL,...){
 # %%%%%%%% General EM Algorithm for Gaussian Locally Linear Mapping %%%%%%%%%
 # %%% Author: Antoine Deleforge (April 2013) - antoine.deleforge@inria.fr %%%
 # % Description: Compute maximum likelihood parameters theta and posterior
@@ -55,6 +55,17 @@ if(! "b" %in% names(cstr)) cstr$b=NULL;
 if(! "Sigma" %in% names(cstr)) cstr$Sigma="i";
 
 if (ncol(tapp) != ncol(yapp)) {stop("Observations must be in columns and variables in rows")}
+
+covParBloc_EM =function(yCen,rk_bar, model){
+  covY = tcrossprod(yCen)/rk_bar
+  Dim = dim(covY)[1]
+  covEmpB = matrix(0,nrow = Dim,ncol = Dim)
+  for (b in 1:max(model)){
+    ind = which(model == b)
+    covEmpB[ind,ind] = covY[ind,ind]
+  }
+  return(covEst = covEmpB )
+}
 
 ExpectationZ = function(tapp,yapp,th,verb){
     if(verb>=1) print('  EZ');
@@ -137,7 +148,7 @@ return(list(muw=muw,Sw=Sw))
 }
 
 
-Maximization = function(tapp,yapp,r,muw,Sw,cstr,verb){
+Maximization = function(tapp,yapp,r,muw,Sw,cstr,verb,model){
     if(verb>=1) print('  M'); 
     if(verb>=3) print(' k='); 
     K = ncol(r);
@@ -314,10 +325,12 @@ Maximization = function(tapp,yapp,r,muw,Sw,cstr,verb){
 			                		else {th$Sigma[,,k]=th$Sigma[,,k]+sum(diag(ASAwk))/D*diag(D);}
 			                }  
 		             }                       
-			else {	cstr$Sigma ;
-			            stop('  ERROR: invalid constraint on Sigma.');}
-					}
-				}
+	          else {	
+	            if (cstr$Sigma=='bSHOCK') {
+	              th$Sigma[,,k] = covParBloc_EM(yCen=diffSigma,rk_bar=rk_bar[k], model=model[[k]]);}
+	            else {stop('  ERROR: invalid constraint on Sigma.');}}
+	        }
+        }
 			       
         #% Avoid numerical problems on covariances:
         if(verb>=3) print('n');
@@ -417,30 +430,8 @@ if(!is.null(in_theta)) {
 	muw = tmp$muw
 	Sw = tmp$Sw  
     if(verb>=1) print(""); 
-    } else {if(is.null(in_r)){ # en commentaire dans le code original : pourquoi? 
-        # % Initialise posteriors with K-means + GMM on joint observed data
-# %         [~,C] = kmeans([t;y]',in_K);
-# %         [~, ~, ~, r] = emgm([t;y], C', 3, verb);
-# %         [~, ~, ~, r] = emgm([t;y], in_K, 3, verb); 
+    } else {if(is.null(in_r)){ 
 			 r = emgm(rbind(tapp,yapp), in_K, 1000, verb=verb)$R; 
-# %         [~,cluster_idx]=max(r,NULL,2);
-# %         fig=figure;clf(fig);    
-# %         scatter(t(1,:),t(2,:),200,cluster_idx','filled');        
-        
-# %         weight=model.weight;
-# %         K=length(weight);
-# %         mutt=model.mu(1:Lt,:);
-# %         Sigmatt=model.Sigma[1:Lt,1:Lt,];
-# %         normr=zeros(N,1);
-# %         r=zeros(N,K);
-# %         for k=1:K
-# %             r[,k]=weight[k]*mvnpdf(t',mutt[,k]',reshape(Sigmatt[,,k],Lt,Lt));
-# %             normr=normr+reshape(r[,k],N,1);       
-# %         end
-# %         r=sweep(@rdivide,r,normr);        
-# %         fig=figure;clf(fig);
-# %         [~,classes]=max(r,NULL,2); % Nx1
-# %         scatter(y(1,:),y(2,:),200,classes','filled');
     } else {r=in_r$R;}
     
     if(Lw==0) {Sw=NULL; muw=NULL;} else {
@@ -503,7 +494,7 @@ while ( !converged & iter<maxiter)
 
     if(verb>=1) print(paste('       Iteration ',iter,sep=""));   
     # % =====================MAXIMIZATION STEP===========================
-    theta = Maximization(tapp,yapp,r,muw,Sw,cstr,verb);    
+    theta = Maximization(tapp,yapp,r,muw,Sw,cstr,verb,...);    
     
     # % =====================EXPECTATION STEPS=========================== 
     tmp = ExpectationZ(tapp,yapp,theta,verb);
@@ -532,21 +523,28 @@ LLf=LL[iter];
 
 # % =============================Final plots===============================
 if(verb>=1) print(paste('Converged in ',iter,' iterations',sep=""));
-# if(verb>=2)
-   # { plot(LL);
-    # cluster_idx=max.col(r);
-# # %     for d=1:D/2
-# # %         fig=figure;clf(fig);    
-# # %         scatter(y(2*d-1,:),y(2*d,:),200,cluster_idx');
-# # %     end
-# # %     fig=figure;clf(fig);    
-# # %     scatter(t(1,:),t(2,:),200,cluster_idx','filled');
-	# }
-
-#} 
 
 theta$r = r
 theta$LLf=LLf
 theta$LL = LL[1:iter]
+
+if (cstr$Sigma == "i") {nbparSigma = 1}
+if (cstr$Sigma == "d") {nbparSigma = D}  
+if (cstr$Sigma == "") {nbparSigma = D*(D+1)/2}
+if (cstr$Sigma == "*") {nbparSigma = D*(D+1)/(2*K)} 
+if (cstr$Sigma == "bSHOCK") {nbparSigma = Inf} 
+  
+if (!is.null(cstr$Gammat)){
+  if (cstr$Gammat == "i") {nbparGamma = 1}
+  if (cstr$Gammat == "d") {nbparGamma = Lt}  
+  if (cstr$Gammat == "") {nbparGamma = Lt*(Lt+1)/2}
+  if (cstr$Gammat == "*") {nbparGamma = Lt*(Lt+1)/(2*K)}    
+}  
+if (is.null(cstr$Gammat)){
+  nbparGamma = Lt*(Lt+1)/2  
+}
+
+theta$nbpar = (K-1) + K*(D*L + D + Lt + nbparSigma + nbparGamma)
+
 return(theta)
 }
