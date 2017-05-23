@@ -1,10 +1,10 @@
-826676ef5f07dbb2a95330e0f1a0c779 *DESCRIPTION
+e4f140f0888c949d88013c9d688418fd *DESCRIPTION
 c7e66c83e2ab977e52a417227531d04b *NAMESPACE
 f35fefc34be4c8d375ff1fe8d29fb95e *R/Maximization_hybrid.R
 a4705dcb185d1ca608dde2c95cfc059d *R/bllim.R
 03996474aefaf92b10176bccfc65d6c7 *R/covParBloc.R
 2b67f1294194a09a355d4a2a22d40406 *R/emgm.R
-3a2740484b31722cf2c67447c7972127 *R/gllim.R
+7ab872aa4136534bf948693f419ad81c *R/gllim.R
 e744972763b3a8a0c736bb07005f4171 *R/gllim_inverse_map.R
 269923b27052ae45662f826ca9a5a054 *R/inv_digamma.R
 f12d60949bcc2b3979532594757bd1ff *R/loggausspdf.R
@@ -12,7 +12,7 @@ f12d60949bcc2b3979532594757bd1ff *R/loggausspdf.R
 913892b589cfc0802407fc5f467dfe85 *R/logtpdfD.R
 36297c3fa7ab46d9712e59519c19e526 *R/logtpdfL.R
 83e7ef800b14c5da6321b9cb3040d1ef *R/mahalanobis_distance.R
-ac5d31e3f6db00dccafd09be1988d449 *R/sllim.R
+a101bd585a835b7025ef60494b03f3e4 *R/sllim.R
 27c31af7a76a957020c558616759b6a7 *R/sllim_inverse_map.R
 577f8dec4965828929627ab1ccb3575a *R/thresholdAbsPath2.R
 5a913e224402bb657a45366bb00e5fb7 *data/data.xllim.rda
@@ -27,4 +27,4 @@ b72e9b39383e441718b3570652a5f303 *man/gllim.Rd
 2d51f737d88745223f62a80be0c5ac9b *man/gllim_inverse_map.Rd
 81b611b2bd9172a121dd2c8bc368a876 *man/sllim.Rd
 c546f7f61df3222923b96e9f116bb2fc *man/sllim_inverse_map.Rd
-9589e9e6f483aa9b2647830d509cca9a *man/xLLiM-package.Rd
+8653c513904e81a377977b23b349f56e *man/xLLiM-package.Rd

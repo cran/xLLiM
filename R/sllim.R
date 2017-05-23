@@ -602,7 +602,7 @@ if (is.null(cstr$Gammat)){
   nbparGamma = Lt*(Lt+1)/2  
 }
 
-theta$nbpar = (K-1) + K*(1 + D*L + D + Lt + nbparSigma + nbparGamma)
+theta$nbpar = (in_K-1) + in_K*(1 + D*L + D + Lt + nbparSigma + nbparGamma)
 
 # % =============================Final plots===============================
 if(verb>=1) print(paste('Converged in ',iter,' iterations',sep=""));

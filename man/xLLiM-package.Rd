@@ -11,8 +11,8 @@ Provides a tool for non linear mapping (non linear regression) using a mixture o
 \tabular{ll}{
 Package: \tab xLLiM\cr
 Type: \tab Package\cr
-Version: \tab 2.0\cr
-Date: \tab 2017-05-16\cr
+Version: \tab 2.1\cr
+Date: \tab 2017-05-23\cr
 License: \tab GPL (>= 2)\cr
 }
 The methods implemented in this package adress the following non-linear mapping issue:
