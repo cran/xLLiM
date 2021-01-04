@@ -56,7 +56,7 @@ The functions available in this package are used in this order:
 
 [2] E. Devijver, M. Gallopin, E. Perthame. Nonlinear network-based quantitative trait prediction from transcriptomic data. Submitted, 2017, available at \url{https://arxiv.org/abs/1701.07899}.
 
-[3] E. Perthame, F. Forbes, and A. Deleforge. Inverse regression approach to robust non-linear high-to-low dimensional mapping. Submitted, 2016, avalaible on line at \url{https://hal.archives-ouvertes.fr/hal-01347455}.
+[3] E. Perthame, F. Forbes, and A. Deleforge. Inverse regression approach to robust nonlinear high-to-low dimensional mapping. Journal of Multivariate Analysis, 163(C):1--14, 2018. https://doi.org/10.1016/j.jmva.2017.09.009
 
 [4] X. Qiao and N. Minematsu. Mixture of probabilistic linear regressions: A unified view of GMM-based mapping techiques. IEEE International Conference on Acoustics, Speech, and Signal Processing, 2009.
 

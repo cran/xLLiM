@@ -32,7 +32,7 @@ where \eqn{x} is a new  vector of observed covariates.
 \references{
 [1] A. Deleforge, F. Forbes, and R. Horaud. High-dimensional regression with Gaussian mixtures and partially-latent response variables. Statistics and Computing, 25(5):893--911, 2015.
 
-[2] E. Perthame, F. Forbes, and A. Deleforge. Inverse regression approach to robust non-linear high-to-low dimensional mapping. Submitted, 2016, avalaible on line at \url{https://hal.archives-ouvertes.fr/hal-01347455}.
+[2] E. Perthame, F. Forbes, and A. Deleforge. Inverse regression approach to robust nonlinear high-to-low dimensional mapping. Journal of Multivariate Analysis, 163(C):1--14, 2018. https://doi.org/10.1016/j.jmva.2017.09.009
 }
 
 \examples{

@@ -531,14 +531,14 @@ theta$LL = LL[1:iter]
 if (cstr$Sigma == "i") {nbparSigma = 1}
 if (cstr$Sigma == "d") {nbparSigma = D}  
 if (cstr$Sigma == "") {nbparSigma = D*(D+1)/2}
-if (cstr$Sigma == "*") {nbparSigma = D*(D+1)/(2*K)} 
+if (cstr$Sigma == "*") {nbparSigma = D*(D+1)/(2*in_K)} 
 if (cstr$Sigma == "bSHOCK") {nbparSigma = Inf} 
   
 if (!is.null(cstr$Gammat)){
   if (cstr$Gammat == "i") {nbparGamma = 1}
   if (cstr$Gammat == "d") {nbparGamma = Lt}  
   if (cstr$Gammat == "") {nbparGamma = Lt*(Lt+1)/2}
-  if (cstr$Gammat == "*") {nbparGamma = Lt*(Lt+1)/(2*K)}    
+  if (cstr$Gammat == "*") {nbparGamma = Lt*(Lt+1)/(2*in_K)}    
 }  
 if (is.null(cstr$Gammat)){
   nbparGamma = Lt*(Lt+1)/2  

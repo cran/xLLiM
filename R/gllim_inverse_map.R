@@ -29,7 +29,7 @@ gllim_inverse_map = function(y,theta,verb=0){
 	for (k in 1:K){
     if(verb>=2) print(paste("k=",k,sep=""));
     if(verb>=2) print('AbcG ');
-    if (L==1) {Ak=theta$A[,,k,drop=FALSE];} else {Ak=theta$A[,,k];} # % DxL
+    if (L==1) {Ak=theta$A[,,k,drop=FALSE];} else {Ak=matrix(theta$A[,,k],ncol=L,nrow=D);} # % DxL
     bk=theta$b[,k]; # % Dx1
     Sigmak=theta$Sigma[,,k]; # %DxD  ## OK 
     if (L==1) {ck=theta$c[,k,drop=FALSE];} else {ck=theta$c[,k];} # % Lx1
