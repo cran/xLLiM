@@ -1,10 +1,10 @@
-252158041459aa7c11f2daead55dbb4c *DESCRIPTION
+e12713983a45419502a3fe096dd81ad2 *DESCRIPTION
 1ca2f8a331fef469109e8ebda8796cf0 *NAMESPACE
 f35fefc34be4c8d375ff1fe8d29fb95e *R/Maximization_hybrid.R
 ed5ee76376ff068fa634f559a8907e03 *R/bllim.R
 03996474aefaf92b10176bccfc65d6c7 *R/covParBloc.R
 2b67f1294194a09a355d4a2a22d40406 *R/emgm.R
-3771374fa52753ce6186d9f911958d28 *R/gllim.R
+36dcb1918c0ef45ac79bcf5d54c8f088 *R/gllim.R
 68a7ab1a4addd180cf2320fb4f998be2 *R/gllim_inverse_map.R
 269923b27052ae45662f826ca9a5a054 *R/inv_digamma.R
 f12d60949bcc2b3979532594757bd1ff *R/loggausspdf.R
@@ -15,7 +15,7 @@ f12d60949bcc2b3979532594757bd1ff *R/loggausspdf.R
 a101bd585a835b7025ef60494b03f3e4 *R/sllim.R
 27c31af7a76a957020c558616759b6a7 *R/sllim_inverse_map.R
 576e266807ce20c958a77bc8ce4614e0 *R/thresholdAbsPath2.R
-189ac9698545a9d0654576e87817fba0 *README.md
+90e3e38b056ec1ee5f0f60a1fdb16b77 *README.md
 5a913e224402bb657a45366bb00e5fb7 *data/data.xllim.rda
 31902c6a040a65b670b77b53a33618b3 *data/data.xllim.test.rda
 38db446936ad4e955724f87e29b1cbac *data/data.xllim.trueparameters.rda
@@ -28,4 +28,4 @@ fa4c4055e1821375175359bda2574993 *man/gllim.Rd
 9c706605d12d25554cd0b3c66ade4004 *man/gllim_inverse_map.Rd
 6703304eaa71f0909702b9318bb7e713 *man/sllim.Rd
 26033469348b7db1fd6130b015bf86b8 *man/sllim_inverse_map.Rd
-e6924a5cf427ba6b7a6053dde22ec423 *man/xLLiM-package.Rd
+cd9bb4a30e77c55ceaa8e9f5dff6f6a7 *man/xLLiM-package.Rd

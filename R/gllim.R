@@ -376,9 +376,7 @@ Maximization = function(tapp,yapp,r,muw,Sw,cstr,verb,model){
 return(th)
 }
 
-remove_empty_clusters= function(th1,cstr1,ec){
-    th=th1;
-    cstr=cstr1;
+remove_empty_clusters= function(th,cstr,ec){
     if(sum(ec) != length(ec))
         {if( !is.null(cstr$ct) && !is.character(cstr$ct))
             cstr$ct=cstr$ct[,ec];  
