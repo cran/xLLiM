@@ -8,6 +8,13 @@ High Dimensional Locally-Linear Mapping
 Provides a tool for non linear mapping (non linear regression) using a mixture of regression model and an inverse regression strategy. The methods include the GLLiM model (see Deleforge et al (2015) <DOI:10.1007/s11222-014-9461-5>) based on Gaussian mixtures and a robust version of GLLiM, named SLLiM (see Perthame et al (2016) <https://hal.archives-ouvertes.fr/hal-01347455>) based on a mixture of Generalized Student distributions. The methods also include BLLiM (see Devijver et al (2017) <https://arxiv.org/abs/1701.07899>) which is an extension of GLLiM with a sparse block diagonal structure for large covariance matrices (particularly interesting for transcriptomic data).
 }
 \details{
+\tabular{ll}{
+Package: \tab xLLiM\cr
+Type: \tab Package\cr
+Version: \tab 2.1\cr
+Date: \tab 2017-05-23\cr
+License: \tab GPL (>= 2)\cr
+}
 The methods implemented in this package adress the following non-linear mapping issue:
 \deqn{ E(Y | X=x) = g(x),}
 where \eqn{Y} is a L-vector of multivariate responses and \eqn{X} is a large D-vector of covariates' profiles such that \eqn{D \gg L}. The methods implemented in this package aims at estimating the non linear regression function \eqn{g}.

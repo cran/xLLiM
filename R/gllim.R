@@ -71,7 +71,7 @@ ExpectationZ = function(tapp,yapp,th,verb){
     if(verb>=1) print('  EZ');
     if(verb>=3) print(' k='); 
     D= nrow(yapp)
-    N = ncol(yapp)  
+    N = ncol(yapp) 
     K=length(th$pi);
     Lt = nrow(tapp)
     L = nrow(th$c)
@@ -109,10 +109,13 @@ ExpectationZ = function(tapp,yapp,th,verb){
             if(verb>=1) {print(paste('     WARNING: CLASS ',k,' HAS BEEN REMOVED'));}  
 		}      
     }
-    if (sum(ec)==0)
-        {print('REINIT! ');
-        r = emgm(rbind(tapp,yapp), K, 2, verb)$R;
-        ec=rep(TRUE,ncol(r));} else {r=r[,ec];}
+    if (sum(ec)==0){
+      print('REINIT! ');
+      r = emgm(rbind(tapp,yapp), K, 2, verb)$R;
+      ec=rep(TRUE,ncol(r));
+      } else {
+        r=r[,ec,drop=FALSE];
+      }
 return(list(r=r,LL=LL,ec=ec))
 }
 
@@ -183,11 +186,11 @@ Maximization = function(tapp,yapp,r,muw,Sw,cstr,verb,model){
             else {th$c[1:Lt,k]=cstr$ct[,k];}
             #% Compute optimal covariance matrix Gammatk
             if(verb>=3) {print('Gt');}
-            diffGamma= sweep(sweep(tapp,1,th$c[1:Lt,k],"-"),2,sqrt(rk),"*");    #% LtxN
+            diffGamma <- sweep(sweep(tapp,1,th$c[1:Lt,k],"-"),2,sqrt(rk),"*");    #% LtxN
             if( is.null(cstr$Gammat) || (length(cstr$Gammat)==1 & cstr$Gammat=='*')) # | ou ||?
                # %%%% Full Gammat
                 {th$Gamma[1:Lt,1:Lt,k]=tcrossprod(diffGamma)/rk_bar[k]; #% DxD
-                }#th$Gamma[1:Lt,1:Lt,k]=th$Gamma[1:Lt,1:Lt,k];                    
+                }                    
             else
             	{
             		if( !is.character(cstr$Gammat))
@@ -377,32 +380,32 @@ return(th)
 }
 
 remove_empty_clusters= function(th,cstr,ec){
-    if(sum(ec) != length(ec))
-        {if( !is.null(cstr$ct) && !is.character(cstr$ct))
-            cstr$ct=cstr$ct[,ec];  
-        if(!is.null(cstr$cw) && !is.character(cstr$cw))
-            cstr$cw=cstr$cw[,ec];    
-        if(!is.null(cstr$Gammat) && !is.character(cstr$Gammat))
-            cstr$Gammat=cstr$Gammat[,,ec];
-        if(!is.null(cstr$Gammaw) && !is.character(cstr$Gammaw))
-            cstr$Gammaw=cstr$Gammaw[,,ec];    
-        if(!is.null(cstr$pi) && !is.character(cstr$pi))
-            cstr$pi=cstr$pi[,ec];       
-        if(!is.null(cstr$A) && !is.character(cstr$A))
-            cstr$A=cstr$A[,,ec];
-        if(!is.null(cstr$b) && !is.character(cstr$b))
-            cstr$b=cstr$b[,ec];     
-        if(!is.null(cstr$Sigma) && !is.character(cstr$Sigma))
-            cstr$Sigma=cstr$Sigma[,,ec];        
-
-        th$c=th$c[,ec];
-        th$Gamma=th$Gamma[,,ec];
-        th$pi=th$pi[ec];
-        th$A=th$A[,,ec];
-        th$b=th$b[,ec];
-        th$Sigma=th$Sigma[,,ec]; 
-    }
-return(list(th=th,cstr=cstr))
+  if(sum(ec) != length(ec))
+  {if( !is.null(cstr$ct) && !is.character(cstr$ct))
+    cstr$ct=cstr$ct[,ec];  
+  if(!is.null(cstr$cw) && !is.character(cstr$cw))
+    cstr$cw=cstr$cw[,ec];    
+  if(!is.null(cstr$Gammat) && !is.character(cstr$Gammat))
+    cstr$Gammat=cstr$Gammat[,,ec];
+  if(!is.null(cstr$Gammaw) && !is.character(cstr$Gammaw))
+    cstr$Gammaw=cstr$Gammaw[,,ec];    
+  if(!is.null(cstr$pi) && !is.character(cstr$pi))
+    cstr$pi=cstr$pi[,ec];       
+  if(!is.null(cstr$A) && !is.character(cstr$A))
+    cstr$A=cstr$A[,,ec];
+  if(!is.null(cstr$b) && !is.character(cstr$b))
+    cstr$b=cstr$b[,ec];     
+  if(!is.null(cstr$Sigma) && !is.character(cstr$Sigma))
+    cstr$Sigma=cstr$Sigma[,,ec];        
+  
+  th$c=th$c[,ec];
+  th$Gamma=th$Gamma[,,ec];
+  th$pi=th$pi[ec];
+  th$A=th$A[,,ec];
+  th$b=th$b[,ec];
+  th$Sigma=th$Sigma[,,ec]; 
+  }
+  return(list(th=th,cstr=cstr))
 }
 
 # % ==========================EM initialization==============================
@@ -422,7 +425,7 @@ if(!is.null(in_theta)) {
     r = tmp$r ;
     ec = tmp$ec ;
     tmp = remove_empty_clusters(theta,cstr,ec);
-    theta = tmp$theta ;
+    theta = tmp$th ;
     cstr = tmp$cstr ;
 	tmp = ExpectationW(tapp,yapp,theta,verb);
 	muw = tmp$muw
@@ -487,8 +490,8 @@ if(verb>=1) print('       Running EM');
 LL = rep(-Inf,maxiter);
 iter = 0;
 converged= FALSE;
-while ( !converged & iter<maxiter)
-    {iter = iter + 1;
+while ( !converged & iter<maxiter){
+    iter = iter + 1;
 
     if(verb>=1) print(paste('       Iteration ',iter,sep=""));   
     # % =====================MAXIMIZATION STEP===========================
@@ -496,23 +499,23 @@ while ( !converged & iter<maxiter)
     
     # % =====================EXPECTATION STEPS=========================== 
     tmp = ExpectationZ(tapp,yapp,theta,verb);
-    r =tmp$r ;
+    r = tmp$r ;
     LL[iter] =tmp$LL;
     if (verb>=1) {print(LL[iter]);}
     ec=tmp$ec
-	tmp = remove_empty_clusters(theta,cstr,ec);
-	theta = tmp$th
-	cstr = tmp$cstr
+	  tmp = remove_empty_clusters(theta,cstr,ec);
+	  theta = tmp$th
+	  cstr = tmp$cstr
     
     tmp = ExpectationW(tapp,yapp,theta,verb);  
     muw=tmp$muw
     Sw=tmp$Sw
     
-    if(iter>=3)
-            {deltaLL_total=max(LL[1:iter])-min(LL[1:iter]);
-            deltaLL=LL[iter]-LL[iter-1];
-            converged=(deltaLL <= (0.001*deltaLL_total));
-	}       
+    if(iter>=3) {
+      deltaLL_total=max(LL[1:iter])-min(LL[1:iter]);
+      deltaLL=LL[iter]-LL[iter-1];
+      converged=(deltaLL <= (0.001*deltaLL_total));
+      }       
     
     if(verb>=1) print("");
 	}

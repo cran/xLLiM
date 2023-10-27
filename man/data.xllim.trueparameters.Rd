@@ -8,13 +8,13 @@
 }
 \usage{data(data.xllim.trueparameters)}
 \format{A list with the following elements
-\itemize{
-\item{pi}{ A vector of length \code{K} of mixture weights i.e. prior probabilities for each  component}
-\item{c}{ An \code{(L x K)} matrix of means of responses (X)}
-\item{Gamma}{ An \code{(L x L x K)} array of \code{K} matrices of covariances of responses (X)}
-\item{A}{ An \code{(D x L x K)} array of \code{K} matrices of linear transformation matrices}
-\item{b}{ An \code{(D x K)} matrix in which affine transformation vectors are in columns}
-\item{Sigma}{ An \code{(D x D x K)} array of covariances of \eqn{Y}}
+\describe{
+\item{pi}{A vector of length \code{K} of mixture weights i.e. prior probabilities for each  component}
+\item{c}{An \code{(L x K)} matrix of means of responses (X)}
+\item{Gamma}{An \code{(L x L x K)} array of \code{K} matrices of covariances of responses (X)}
+\item{A}{An \code{(D x L x K)} array of \code{K} matrices of linear transformation matrices}
+\item{b}{An \code{(D x K)} matrix in which affine transformation vectors are in columns}
+\item{Sigma}{An \code{(D x D x K)} array of covariances of \eqn{Y}}
 }
 \code{data.xllim.trueparameters} has the same that the values returned by \code{\link{gllim}} function.
 }
