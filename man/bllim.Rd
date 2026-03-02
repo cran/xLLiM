@@ -54,7 +54,7 @@ where \eqn{L} is the dimension of the response, \eqn{D} is the dimension of cova
 Two hyperparameters must be estimated to run BLLiM: 
 \itemize{ 
 \item Number of mixtures components (or clusters) \eqn{K}: we propose to use BIC criterion or slope heuristics as implemented in \code{\link[capushe]{capushe-package}}
-\item For a given number of clusters K, the block structure of large covariance matrices specific of each cluster: the size and the number of blocks of each \eqn{\Sigma_k} matrix is automatically learnt from data, using an extension of the shock procedure (see \code{\link[shock]{shock-package}}). This procedure is based on a successive thresholding of sample conditional covariance matrix within clusters, building a collection of block structure candidates. The final block structure is retained using slope heuristics. 
+\item For a given number of clusters K, the block structure of large covariance matrices specific of each cluster: the size and the number of blocks of each \eqn{\Sigma_k} matrix is automatically learnt from data, using an extension of the shock procedure (see \doi{10.1080/01621459.2016.1247002}). This procedure is based on a successive thresholding of sample conditional covariance matrix within clusters, building a collection of block structure candidates. The final block structure is retained using slope heuristics. 
 } 
 
 BLLiM is not only a prediction model but also an interpretable tool. For example, it is useful for the analysis of transcriptomic data. Indeed, if covariates are genes and response is a phenotype, the model provides clusters of individuals based on the relation between gene expression data and the phenotype, and also leads to infer a gene regulatory network specific for each cluster of individuals. 
@@ -82,6 +82,6 @@ covariates = data.xllim[3:52,] # 50 covariates in rows and 100 observations in c
 }
 \author{Emeline Perthame (emeline.perthame@pasteur.fr), Emilie Devijver (emilie.devijver@kuleuven.be), Melina Gallopin (melina.gallopin@u-psud.fr)
 }
-\seealso{\code{\link[xLLiM]{xLLiM-package}}, \code{\link{emgm}}, \code{\link{gllim_inverse_map}},\code{\link[capushe]{capushe-package}},\code{\link[shock]{shock-package}}
+\seealso{\code{\link[xLLiM]{xLLiM-package}}, \code{\link{emgm}}, \code{\link{gllim_inverse_map}},\code{\link[capushe]{capushe-package}}
 }
 

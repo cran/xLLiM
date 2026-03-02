@@ -1,4 +1,4 @@
-e9a82078cdc66536602ee4e70dd852f8 *DESCRIPTION
+d20d6f8526ff654ebfbcbda47cf31ce7 *DESCRIPTION
 9da281caf09c8d1fa1cac64bcaea0acb *NAMESPACE
 284961c7a4951f83a38b161f1ef045fb *R/Kfoldcv_xllim.R
 f35fefc34be4c8d375ff1fe8d29fb95e *R/Maximization_hybrid.R
@@ -21,10 +21,11 @@ a101bd585a835b7025ef60494b03f3e4 *R/sllim.R
 27c31af7a76a957020c558616759b6a7 *R/sllim_inverse_map.R
 576e266807ce20c958a77bc8ce4614e0 *R/thresholdAbsPath2.R
 dd80b5d552fb8fb60e04d5c3928f74de *README.md
+76e123f5dcc8dee07678412adc0a2a84 *build/partial.rdb
 5a913e224402bb657a45366bb00e5fb7 *data/data.xllim.rda
 31902c6a040a65b670b77b53a33618b3 *data/data.xllim.test.rda
 38db446936ad4e955724f87e29b1cbac *data/data.xllim.trueparameters.rda
-f76497bf9b6212906f30ddcb298e13d2 *man/bllim.Rd
+70acc41f77e9597f6f2dc55fc347cec1 *man/bllim.Rd
 4e824175921cf05e8f24629a8ba4c74f *man/data.xllim.Rd
 e1c7dd246a190e584f227a90d30fa1bf *man/data.xllim.test.Rd
 66204d1375bcc86344b6d63a42c01372 *man/data.xllim.trueparameters.Rd
@@ -34,4 +35,4 @@ fa4c4055e1821375175359bda2574993 *man/gllim.Rd
 f4b262896fe652c6154ec010e7bc719f *man/preprocess_data.Rd
 6703304eaa71f0909702b9318bb7e713 *man/sllim.Rd
 26033469348b7db1fd6130b015bf86b8 *man/sllim_inverse_map.Rd
-e6924a5cf427ba6b7a6053dde22ec423 *man/xLLiM-package.Rd
+0f43d7140361217101c2e251fb462f03 *man/xLLiM-package.Rd

@@ -11,8 +11,8 @@ Provides a tool for non linear mapping (non linear regression) using a mixture o
 \tabular{ll}{
 Package: \tab xLLiM\cr
 Type: \tab Package\cr
-Version: \tab 2.1\cr
-Date: \tab 2017-05-23\cr
+Version: \tab 2.3.1\cr
+Date: \tab 2026-03-02\cr
 License: \tab GPL (>= 2)\cr
 }
 The methods implemented in this package adress the following non-linear mapping issue:
@@ -49,12 +49,12 @@ The functions available in this package are used in this order:
 \author{Emeline Perthame (emeline.perthame@inria.fr), Florence Forbes (florence.forbes@inria.fr), Antoine Deleforge (antoine.deleforge@inria.fr)
 
 }
-\seealso{\code{\link[shock]{shock-package}},\code{\link[capushe]{capushe-package}}
+\seealso{\code{\link[capushe]{capushe-package}}
 }
 \references{
 [1] A. Deleforge, F. Forbes, and R. Horaud. High-dimensional regression with Gaussian mixtures and partially-latent response variables. Statistics and Computing, 25(5):893--911, 2015.
 
-[2] E. Devijver, M. Gallopin, E. Perthame. Nonlinear network-based quantitative trait prediction from transcriptomic data. Submitted, 2017, available at \url{https://arxiv.org/abs/1701.07899}.
+[2] M. Blein-Nicolas, E. Devijver, M. Gallopin, E. Perthame. Nonlinear network-based quantitative trait prediction from biological data. JRSS Series C, 73(3):796--815, 2024. https://doi.org/10.1093/jrsssc/qlae012.
 
 [3] E. Perthame, F. Forbes, and A. Deleforge. Inverse regression approach to robust nonlinear high-to-low dimensional mapping. Journal of Multivariate Analysis, 163(C):1--14, 2018. https://doi.org/10.1016/j.jmva.2017.09.009
 
